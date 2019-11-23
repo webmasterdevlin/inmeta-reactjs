@@ -1,13 +1,16 @@
 import React from 'react';
 import './App.css';
-import MemberList from './components/MemberList';
+import { BrowserRouter } from 'react-router-dom'
+import RootRouter from './root-router';
 
 function App() {
   return (
-    <div className="App">
-      <h2>Logo and NavBar</h2>
-      <MemberList />
-    </div>
+    <BrowserRouter>
+      <>
+        <h2>Logo and NavBar</h2>
+        <RootRouter />
+      </>
+    </BrowserRouter>
   );
 }
 export default App;

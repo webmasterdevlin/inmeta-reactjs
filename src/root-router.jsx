@@ -1,7 +1,7 @@
 import React from 'react'
 import { Router, Redirect } from '@reach/router'
 import MemberList from './components/MemberList'
-import Profile from './components/Profile'
+import Profile from './components/Profile';
 
 const RootRouter = () => (
     <Router>
