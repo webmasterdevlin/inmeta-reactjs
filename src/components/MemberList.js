@@ -16,12 +16,15 @@ export default function MemberList() {
     }
 
     const deleteMember = async (id) => {
+        const previous = [...members];
+        const newMembers = members.filter(m => m.id !== id);
+        setMembers(newMembers);
+
         try {
-            await axios.delete(`http://localhost:5000/members/${id}`);
-            const newMembers = members.filter(m => m.id !== id);
-            setMembers(newMembers);
+            await axios.delete(`http://localhost:5000/members/${id}xx44`);
         } catch (err) {
-            alert(err.message)
+            alert(err.message);
+            setMembers(previous);
         }
     }
 
