@@ -15,6 +15,16 @@ export default function MemberList() {
         setMembers(response.data);
     }
 
+    const deleteMember = async (id) => {
+        try {
+            await axios.delete(`http://localhost:5000/members/${id}`);
+            const newMembers = members.filter(m => m.id !== id);
+            setMembers(newMembers);
+        } catch (err) {
+            alert(err.message)
+        }
+    }
+
     return (<div style={{ width: '75vw', margin: "0 auto", padding: '2rem' }}>
         <h2>React Demo</h2>
         <h3>
@@ -23,7 +33,7 @@ export default function MemberList() {
                     <Box key={m.id} boxShadow={3}>
                         <li >{m.name} {m.age}</li>
                         <Button variant="contained" color="secondary"
-                            onClick={() => alert(m.id)} >Delete</Button>
+                            onClick={() => deleteMember(m.id)} >Delete</Button>
                     </Box>
                 )}
             </ul>
