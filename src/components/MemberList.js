@@ -22,11 +22,11 @@ export default function MemberList() {
                 {members.map(m =>
                     <Box key={m.id} boxShadow={3}>
                         <li >{m.name} {m.age}</li>
-                        <Button variant="contained" color="secondary" >Delete</Button>
+                        <Button variant="contained" color="secondary"
+                            onClick={() => alert(m.id)} >Delete</Button>
                     </Box>
                 )}
             </ul>
         </h3>
-
     </div>)
 }
