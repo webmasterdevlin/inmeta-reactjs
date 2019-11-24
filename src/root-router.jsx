@@ -8,7 +8,7 @@ const RootRouter = () => (
         <Redirect from="/" to="member-list" noThrow />
 
         <Profile path="edit-member/:id" />
-        <Profile path="edit-member" />
+
         <MemberList path="member-list" />
     </Router>
 );

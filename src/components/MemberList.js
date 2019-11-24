@@ -3,6 +3,7 @@ import axios from 'axios';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { Link } from '@reach/router';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 const devlinStyle = makeStyles(theme =>
     createStyles({
@@ -106,7 +107,7 @@ export default function MemberList() {
                     :
                     members.map(m =>
                         <Box boxShadow={3} key={m.id}>
-                            <li>
+                            <li style={{ width: '100%', display: 'flex', justifyContent: 'space-around' }}>
                                 {forEditing === m.id ? (
                                     <>
                                         <TextField value={memberToUpdate.name} margin="dense"
@@ -119,13 +120,18 @@ export default function MemberList() {
                                             multiline rowsMax="4" />
                                     </>) : (`name: ${m.name}, age: ${m.age}`)
                                 }
-                                {forEditing === m.id
-                                    ?
-                                    (<Button variant="contained" color="primary" onClick={handleUpdateMember} >Update</Button>)
-                                    :
-                                    (<Button variant="contained" className={button} onClick={() => handleEditMember(m)} >Edit</Button>)
-                                }
-                                <Button variant="contained" color="secondary" onClick={() => deleteMember(m.id)} >Delete</Button>
+                                <div style={{ display: 'flex' }}>
+                                    {forEditing === m.id
+                                        ?
+                                        (<Button variant="contained" color="primary" onClick={handleUpdateMember} >Update</Button>)
+                                        :
+                                        (<Button variant="contained" className={button} onClick={() => handleEditMember(m)} >Edit</Button>)
+                                    }
+                                    <Button variant="contained" color="secondary" onClick={() => deleteMember(m.id)} >Delete</Button>
+                                    <Link style={{ textDecoration: 'none' }} to={`/edit-member/${m.id}`}>
+                                        <Button color="inherit" variant="outlined">View Profile</Button>
+                                    </Link>
+                                </div>
                             </li>
                         </Box>
                     )}
