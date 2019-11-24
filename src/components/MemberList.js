@@ -79,35 +79,27 @@ export default function MemberList() {
             <TextField onChange={handleAgeOnChange} margin="dense" variant="outlined" multiline rowsMax="4" />
             <Button variant="contained" color="primary" onClick={handleAddMember} >Add Member</Button>
             <ul style={{ listStyle: 'none' }}>
-                {loading
-                    ?
-                    <h2>Loading...</h2>
+                {loading ?
+                    <h2>Loading..</h2>
                     :
                     members.map(m =>
-                        <Box key={m.id} boxShadow={3}>
-                            <li >
-                                {forEditing === m.id ?
-                                    (<>
-                                        <TextField margin="dense"
-                                            variant="outline"
-                                            multiline rowsMax="4" />
-                                        <TextField margin="dense"
-                                            variant="outline"
-                                            multiline rowsMax="4" />
-                                    </>) : (`name: ${m.name}, age: ${m.age}`)
-                                }
-                                {forEditing === m.id ?
-                                    (<Button variant="contained" className={button}
-                                        onClick={() => alert('Update')} >
-                                        Update</Button>)
-                                    :
-                                    <Button variant="contained" color="primary" style={{ margin: '1rem' }}
-                                        onClick={() => handleEditMember(m)} >
-                                        Edit </Button>}
-                                <Button variant="contained" color="secondary" style={{ margin: '1rem' }}
-                                    onClick={() => deleteMember(m.id)} >
-                                    Delete</Button>
-                            </li>
+                        <Box boxShadow={3} key={m.id}>  <li>
+                            {forEditing === m.id ? (
+                                <>
+                                    <TextField margin="dense"
+                                        variant="outlined"
+                                        multiline rowsMax="4" />
+                                    <TextField margin="dense"
+                                        variant="outlined"
+                                        multiline rowsMax="4" />
+                                </>) : (`name: ${m.name}, age: ${m.age}`)
+                            }
+                            {forEditing === m.id ?
+                                (<Button variant="contained" color="primary" >Update</Button>) :
+                                (<Button variant="contained" className={button} onClick={() => handleEditMember(m)} >Edit</Button>)}
+                            <Button variant="contained" color="secondary" onClick={() => deleteMember(m.id)} >Delete</Button>
+
+                        </li>
                         </Box>
                     )}
             </ul>
