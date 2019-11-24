@@ -72,6 +72,13 @@ export default function MemberList() {
         setMemberToUpdate(member);
     }
 
+    const handleEditNameOnChange = ({ currentTarget }) => {
+        setMemberToUpdate({ ...memberToUpdate, name: currentTarget.value })
+    }
+    const handleEditAgeOnChange = ({ currentTarget }) => {
+        setMemberToUpdate({ ...memberToUpdate, age: currentTarget.value })
+    }
+
     return (<div style={{ width: '75vw', margin: "0 auto", padding: '2rem' }}>
         <h2>React Demo</h2>
         <h3>
@@ -83,23 +90,28 @@ export default function MemberList() {
                     <h2>Loading..</h2>
                     :
                     members.map(m =>
-                        <Box boxShadow={3} key={m.id}>  <li>
-                            {forEditing === m.id ? (
-                                <>
-                                    <TextField margin="dense"
-                                        variant="outlined"
-                                        multiline rowsMax="4" />
-                                    <TextField margin="dense"
-                                        variant="outlined"
-                                        multiline rowsMax="4" />
-                                </>) : (`name: ${m.name}, age: ${m.age}`)
-                            }
-                            {forEditing === m.id ?
-                                (<Button variant="contained" color="primary" >Update</Button>) :
-                                (<Button variant="contained" className={button} onClick={() => handleEditMember(m)} >Edit</Button>)}
-                            <Button variant="contained" color="secondary" onClick={() => deleteMember(m.id)} >Delete</Button>
-
-                        </li>
+                        <Box boxShadow={3} key={m.id}>
+                            <li>
+                                {forEditing === m.id ? (
+                                    <>
+                                        <TextField value={memberToUpdate.name} margin="dense"
+                                            onChange={handleEditNameOnChange}
+                                            variant="outlined"
+                                            multiline rowsMax="4" />
+                                        <TextField value={memberToUpdate.age} margin="dense"
+                                            onChange={handleEditAgeOnChange}
+                                            variant="outlined"
+                                            multiline rowsMax="4" />
+                                    </>) : (`name: ${m.name}, age: ${m.age}`)
+                                }
+                                {forEditing === m.id
+                                    ?
+                                    (<Button variant="contained" color="primary" >Update</Button>)
+                                    :
+                                    (<Button variant="contained" className={button} onClick={() => handleEditMember(m)} >Edit</Button>)
+                                }
+                                <Button variant="contained" color="secondary" onClick={() => deleteMember(m.id)} >Delete</Button>
+                            </li>
                         </Box>
                     )}
             </ul>
