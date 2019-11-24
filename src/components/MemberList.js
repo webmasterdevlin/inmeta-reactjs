@@ -78,8 +78,8 @@ export default function MemberList() {
                     :
                     members.map(m =>
                         <Box key={m.id} boxShadow={3}>
-                            <li >{m.name} {m.age}
-                                <Button variant="contained" color="primary"
+                            <li style={{ margin: '1rem' }} >{m.name} {m.age}
+                                <Button variant="contained" color="primary" style={{ margin: '1rem' }}
                                     onClick={() => alert('Edit')} >
                                     Edit
                             </Button>
@@ -87,7 +87,7 @@ export default function MemberList() {
                                     onClick={() => alert('Update')} >
                                     Update
                             </Button>
-                                <Button variant="contained" color="secondary"
+                                <Button variant="contained" color="secondary" style={{ margin: '1rem' }}
                                     onClick={() => deleteMember(m.id)} >
                                     Delete
                             </Button>
