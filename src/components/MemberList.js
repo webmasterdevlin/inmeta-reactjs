@@ -7,16 +7,18 @@ import TextField from '@material-ui/core/TextField';
 export default function MemberList() {
     const [members, setMembers] = useState([]);
     const [member, setMember] = useState({});
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         loadMembers();
     }, []);
 
     const loadMembers = async () => {
+        setLoading(true);
         const response = await axios.get("http://localhost:5000/members");
         console.log("RESPONSE_DATA: ", response.data);
         setMembers(response.data);
+        setLoading(false);
     }
 
     const deleteMember = async (id) => {
@@ -32,8 +34,16 @@ export default function MemberList() {
         }
     }
 
-    const handleAddMember = () => {
-        console.log("MEMBER: ", member)
+    const handleAddMember = async () => {
+        setLoading(true);
+        try {
+            const { data: createdMember } = await axios.post("http://localhost:5000/members", member)
+            const newMemberCollection = [...members, createdMember];
+            setMembers(newMemberCollection);
+        } catch (e) {
+            alert(e.message);
+        }
+        setLoading(false);
     }
 
     const handleNameOnChange = ({ currentTarget }) => {
