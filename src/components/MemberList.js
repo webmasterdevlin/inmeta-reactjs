@@ -17,6 +17,8 @@ export default function MemberList() {
     const [members, setMembers] = useState([]);
     const [member, setMember] = useState({});
     const [loading, setLoading] = useState(false);
+    const [forEditing, setForEditing] = useState(0);
+    const [memberToUpdate, setMemberToUpdate] = useState({});
 
     useEffect(() => {
         loadMembers();
@@ -65,6 +67,11 @@ export default function MemberList() {
         setMember({ ...member, age: currentTarget.value })
     }
 
+    const handleEditMember = (member) => {
+        setForEditing(member.id);
+        setMemberToUpdate(member);
+    }
+
     return (<div style={{ width: '75vw', margin: "0 auto", padding: '2rem' }}>
         <h2>React Demo</h2>
         <h3>
@@ -78,28 +85,28 @@ export default function MemberList() {
                     :
                     members.map(m =>
                         <Box key={m.id} boxShadow={3}>
-                            <li 
-                            style={{ 
-                                margin: '1rem',
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                width: '100%' }} >
-
-                                <div>
-                                    {m.name} {m.age}
-                                </div>
-
-                                <div>
-                                    <Button variant="contained" color="primary" style={{ margin: '1rem' }}
-                                        onClick={() => alert('Edit')} >
-                                        Edit </Button>
-                                    <Button variant="contained" className={button}
+                            <li >
+                                {forEditing === m.id ?
+                                    (<>
+                                        <TextField margin="dense"
+                                            variant="outline"
+                                            multiline rowsMax="4" />
+                                        <TextField margin="dense"
+                                            variant="outline"
+                                            multiline rowsMax="4" />
+                                    </>) : (`name: ${m.name}, age: ${m.age}`)
+                                }
+                                {forEditing === m.id ?
+                                    (<Button variant="contained" className={button}
                                         onClick={() => alert('Update')} >
-                                        Update</Button>
-                                    <Button variant="contained" color="secondary" style={{ margin: '1rem' }}
-                                        onClick={() => deleteMember(m.id)} >
-                                        Delete</Button>
-                                </div>
+                                        Update</Button>)
+                                    :
+                                    <Button variant="contained" color="primary" style={{ margin: '1rem' }}
+                                        onClick={() => handleEditMember(m)} >
+                                        Edit </Button>}
+                                <Button variant="contained" color="secondary" style={{ margin: '1rem' }}
+                                    onClick={() => deleteMember(m.id)} >
+                                    Delete</Button>
                             </li>
                         </Box>
                     )}
