@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 export default function MemberList() {
     const [members, setMembers] = useState([]);
     const [member, setMember] = useState({});
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         loadMembers();
@@ -52,13 +53,20 @@ export default function MemberList() {
             <TextField onChange={handleAgeOnChange} margin="dense" variant="outlined" multiline rowsMax="4" />
             <Button variant="contained" color="primary" onClick={handleAddMember} >Add Member</Button>
             <ul style={{ listStyle: 'none' }}>
-                {members.map(m =>
-                    <Box key={m.id} boxShadow={3}>
-                        <li >{m.name} {m.age}</li>
-                        <Button variant="contained" color="secondary"
-                            onClick={() => deleteMember(m.id)} >Delete</Button>
-                    </Box>
-                )}
+                {loading
+                    ?
+                    <h2>Loading...</h2>
+                    :
+                    members.map(m =>
+                        <Box key={m.id} boxShadow={3}>
+                            <li >{m.name} {m.age}
+                                <Button variant="contained" color="secondary"
+                                    onClick={() => deleteMember(m.id)} >
+                                    Delete
+                            </Button>
+                            </li>
+                        </Box>
+                    )}
             </ul>
         </h3>
     </div>)
