@@ -78,19 +78,28 @@ export default function MemberList() {
                     :
                     members.map(m =>
                         <Box key={m.id} boxShadow={3}>
-                            <li style={{ margin: '1rem' }} >{m.name} {m.age}
-                                <Button variant="contained" color="primary" style={{ margin: '1rem' }}
-                                    onClick={() => alert('Edit')} >
-                                    Edit
-                            </Button>
-                                <Button variant="contained" className={button}
-                                    onClick={() => alert('Update')} >
-                                    Update
-                            </Button>
-                                <Button variant="contained" color="secondary" style={{ margin: '1rem' }}
-                                    onClick={() => deleteMember(m.id)} >
-                                    Delete
-                            </Button>
+                            <li 
+                            style={{ 
+                                margin: '1rem',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                width: '100%' }} >
+
+                                <div>
+                                    {m.name} {m.age}
+                                </div>
+
+                                <div>
+                                    <Button variant="contained" color="primary" style={{ margin: '1rem' }}
+                                        onClick={() => alert('Edit')} >
+                                        Edit </Button>
+                                    <Button variant="contained" className={button}
+                                        onClick={() => alert('Update')} >
+                                        Update</Button>
+                                    <Button variant="contained" color="secondary" style={{ margin: '1rem' }}
+                                        onClick={() => deleteMember(m.id)} >
+                                        Delete</Button>
+                                </div>
                             </li>
                         </Box>
                     )}
