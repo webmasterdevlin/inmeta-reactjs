@@ -3,8 +3,17 @@ import axios from 'axios';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+const devlinStyle = makeStyles(theme =>
+    createStyles({
+        button: {
+            margin: theme.spacing(1),
+        }
+    })
+)
 export default function MemberList() {
+    const { button } = devlinStyle();
+
     const [members, setMembers] = useState([]);
     const [member, setMember] = useState({});
     const [loading, setLoading] = useState(false);
@@ -27,7 +36,7 @@ export default function MemberList() {
         setMembers(newMembers);
 
         try {
-            await axios.delete(`http://localhost:5000/members/${id}3247328`);
+            await axios.delete(`http://localhost:5000/members/${id}`);
         } catch (err) {
             alert(err.message);
             setMembers(previous);
@@ -70,6 +79,14 @@ export default function MemberList() {
                     members.map(m =>
                         <Box key={m.id} boxShadow={3}>
                             <li >{m.name} {m.age}
+                                <Button variant="contained" color="primary"
+                                    onClick={() => alert('Edit')} >
+                                    Edit
+                            </Button>
+                                <Button variant="contained" className={button}
+                                    onClick={() => alert('Update')} >
+                                    Update
+                            </Button>
                                 <Button variant="contained" color="secondary"
                                     onClick={() => deleteMember(m.id)} >
                                     Delete
