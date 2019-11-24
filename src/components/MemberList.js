@@ -79,6 +79,21 @@ export default function MemberList() {
         setMemberToUpdate({ ...memberToUpdate, age: currentTarget.value })
     }
 
+    // Update request that uses optimistic update
+    const handleUpdateMember = async () => {
+        const previousMembers = [...members] // get the previous members
+        const index = members.findIndex(m => m.id === memberToUpdate.id) // filter members
+        const updatedMembers = [...members]  // create new members
+        updatedMembers[index] = memberToUpdate // update the new array members
+        setMembers(updatedMembers); // set members with the updated members
+        setForEditing(0) // update the setForEditing to zero
+        try {
+            await axios.put(`http://localhost:5000/members/${memberToUpdate.id}`, memberToUpdate)
+        } catch (error) {
+            setMembers(previousMembers)
+        }
+    }
+
     return (<div style={{ width: '75vw', margin: "0 auto", padding: '2rem' }}>
         <h2>React Demo</h2>
         <h3>
@@ -106,7 +121,7 @@ export default function MemberList() {
                                 }
                                 {forEditing === m.id
                                     ?
-                                    (<Button variant="contained" color="primary" >Update</Button>)
+                                    (<Button variant="contained" color="primary" onClick={handleUpdateMember} >Update</Button>)
                                     :
                                     (<Button variant="contained" className={button} onClick={() => handleEditMember(m)} >Edit</Button>)
                                 }
